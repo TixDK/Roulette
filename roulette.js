@@ -5,6 +5,15 @@ let result = -1;
 let resultText;
 let resultatCheck;
 
+let spinTime;
+
+let array = []
+let ay = 50
+
+
+let cash = 1000
+
+
 
 
 function setup() {
@@ -13,7 +22,7 @@ function setup() {
 }
 
 function draw() {
-  background(255);
+
 
   let numSegments = 18;
   let anglePerSegment = 360 / numSegments;
@@ -27,7 +36,8 @@ function draw() {
   }
 
   if (spinning) {
-    speed *= 0.95;
+    spinTime = random(0.950, 0.980)
+    speed *= spinTime;
     angle += speed;
     fill(255);
     let x = width/2 + 130 * cos(angle);
@@ -38,20 +48,44 @@ function draw() {
       let resultAngle = floor(angle / anglePerSegment) * anglePerSegment;
       let resultColor = resultAngle % (2 * anglePerSegment) < anglePerSegment ?  resultText = "Sort": resultText = "Rød";
       console.log(resultText)
+      array.push(resultText)
+      console.log(array)
+      background(255)
+      ay = 50
+      colors()
 
     }
   }
-  fill(0)
-  text(resultText, 10,50)
-  textSize(32)
+  fill(255)
+  text(resultText, 10,25)
+  textSize(24)
+
+  fill(255)
+  text("Penge: " + cash, 250, 25)
   
 
 
 
-  if (result != -1) {
-    fill(result);
-    ellipse(width/2, height/2, 100);
-    
+
+}
+
+function colors(){
+  if(array.length < 10){
+    for(let i = 0; i < array.length; i++){
+      ay += 25
+      c = array[i]
+      if(c == "Sort"){
+        fill(0)
+        rect(370, ay, 25,20)
+      } else if(c == "Rød"){
+        fill(255,0,0)
+        rect(370, ay, 25,20)
+      }
+    }
+  } else {
+    while(array.length > 0){
+      array.pop()
+    }
   }
 }
 
@@ -63,5 +97,8 @@ function mousePressed() {
     spinning = true;
     result = -1;
     resultText = ""
+    ay = 50
+    background(255)
+    colors()
   }
 }
