@@ -12,17 +12,21 @@ let ay = 50
 
 
 let cash = 1000
+let farve;
+let farveValgt;
 
 
 
 
 function setup() {
-  createCanvas(400, 400);
+  createCanvas(windowWidth, windowHeight);
   angleMode(DEGREES);
+  background(1, 85, 54)
 }
 
 function draw() {
-
+  knapper()
+  bet()
 
   let numSegments = 18;
   let anglePerSegment = 360 / numSegments;
@@ -50,7 +54,7 @@ function draw() {
       console.log(resultText)
       array.push(resultText)
       console.log(array)
-      background(255)
+      background(1, 85, 54)
       ay = 50
       colors()
 
@@ -61,7 +65,7 @@ function draw() {
   textSize(24)
 
   fill(255)
-  text("Penge: " + cash, 250, 25)
+  saldo = text("Saldo: " + cash, 10, height - 10)
   
 
 
@@ -69,17 +73,57 @@ function draw() {
 
 }
 
+function knapper(){
+  spinknap = createButton("Spin")
+  spinknap.position(width / 2 - 22, 550)
+  spinknap.mousePressed(spinHjul)
+  spinknap.style('border-radius', '5px')
+  spinknap.style('background-color', color(255,140,0))
+  spinknap.style('border', 'none')
+  spinknap.style('font-size', '18px')
+
+  betsort = createButton("10kr")
+  betsort.position(width / 2 - 50, 600)
+  betsort.mousePressed(farveValgt = "Sort")
+  betsort.style('border-radius', '5px')
+  betsort.style('background-color', color(0))
+  betsort.style('border', 'none')
+  betsort.style('font-size', '18px')
+
+  betrød = createButton("10kr")
+  betrød.position(width / 2 + 10, 600)
+  betrød.mousePressed(farveValgt = "Rød")
+  betrød.mousePressed(spinHjul)
+  betrød.style('border-radius', '5px')
+  betrød.style('background-color', color(255,0,0))
+  betrød.style('color', color(255,0,0))
+  betrød.style('border', 'none')
+  betrød.style('font-size', '18px')
+}
+
+function bet(){
+  if(farveValgt){
+    beløb = createInput("Indtast beløb")
+    beløb.position(width / 2 - 50, 650)
+    console.log(farveValgt)
+  }
+}
+
+function udbetal(){
+
+}
+
 function colors(){
   if(array.length < 10){
     for(let i = 0; i < array.length; i++){
-      ay += 25
+      ay += 28
       c = array[i]
       if(c == "Sort"){
         fill(0)
-        rect(370, ay, 25,20)
+        rect(width - 100, ay, 50,25)
       } else if(c == "Rød"){
         fill(255,0,0)
-        rect(370, ay, 25,20)
+        rect(width - 100, ay, 50,25)
       }
     }
   } else {
@@ -91,14 +135,16 @@ function colors(){
 
 
 
-function mousePressed() {
-  if (!spinning) {
-    speed = random(20, 25);
-    spinning = true;
-    result = -1;
-    resultText = ""
-    ay = 50
-    background(255)
-    colors()
+function spinHjul() {
+  if(farveValgt){
+    if (!spinning) {
+      speed = random(20, 25);
+      spinning = true;
+      result = -1;
+      resultText = ""
+      ay = 50
+      background(1, 85, 54)
+      colors()
+    }
   }
 }
