@@ -82,6 +82,8 @@ function draw() {
 
 }
 /*Funktionen her indeholder alle vores styled knapper og labels*/
+/*Vi benytter os af css (Cascading Style Sheets) når vi siger .style*/
+/*Nemmere sagt, vi bruger css i et javascript dokument*/
 function knapper(){
   spinknap = createButton("Spin")
   spinknap.position(width / 2 - 22, 550)
